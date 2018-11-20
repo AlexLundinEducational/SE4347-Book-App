@@ -17,10 +17,10 @@ async function find(context) {
   const binds = {};
 
   if (context.ISBN) {
+	context.ISBN = context.ISBN.toString();  
     binds.ISBN = context.ISBN;
-	
     query += '\nand ISBN = :ISBN';
-	
+	console.log('\nBinds isbn ' + binds.ISBN);
   }
   
 
@@ -55,10 +55,10 @@ async function find(context) {
   binds.row_limit = limit;
 
   query += '\nfetch next :row_limit rows only';
-  console.log('\nBinds isbn ' + binds.ISBN);
+  
   const result = await database.simpleExecute(query, binds);
 	
-  console.log('\nQuery done with isbn ' + binds.ISBN);
+  console.log('\nQuery done with: \n' + query);
   return result.rows;
 }
 
