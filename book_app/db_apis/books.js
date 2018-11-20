@@ -10,7 +10,7 @@ const baseQuery =
   from BOOKS
   where 1 = 1`;
 
-const sortableColumns = ['ISBN'];
+const sortableColumns = ['ISBN', 'TITLE'];
 
 async function find(context) {
   let query = baseQuery;
@@ -18,10 +18,11 @@ async function find(context) {
 
   if (context.ISBN) {
     binds.ISBN = context.ISBN;
- 
+	
     query += '\nand ISBN = :ISBN';
+	
   }
- 
+  
 
   if (context.sort === undefined) {
     query += '\norder by TITLE asc';
@@ -54,9 +55,10 @@ async function find(context) {
   binds.row_limit = limit;
 
   query += '\nfetch next :row_limit rows only';
-
+  console.log('\nBinds isbn ' + binds.ISBN);
   const result = await database.simpleExecute(query, binds);
-
+	
+  console.log('\nQuery done with isbn ' + binds.ISBN);
   return result.rows;
 }
 

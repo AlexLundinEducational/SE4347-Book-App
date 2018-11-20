@@ -4,7 +4,9 @@ async function get(req, res, next) {
   try {
     const context = {};
 
-    context.ISBN = parseInt(req.params.ISBN, 10);
+    context.ISBN = parseInt(req.params.isbn, 10);
+	context.ISBN = context.ISBN.toString();
+	
     context.skip = parseInt(req.query.skip, 10);
     context.limit = parseInt(req.query.limit, 10);
     context.sort = req.query.sort;
