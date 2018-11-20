@@ -6,8 +6,8 @@ const baseQuery =
     AUTHOR "AUTHOR",
     TITLE "TITLE",
     PRICE "PRICE",
-    SUBJECT "SUBJECT",
-  from employees
+    SUBJECT "SUBJECT"
+  from BOOKS
   where 1 = 1`;
 
 const sortableColumns = ['ISBN'];
