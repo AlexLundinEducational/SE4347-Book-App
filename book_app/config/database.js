@@ -1,8 +1,8 @@
 module.exports = {
-  hrPool: {
-    user: process.env.HR_USER,
-    password: process.env.HR_PASSWORD,
-    connectString: process.env.HR_CONNECTIONSTRING,
+  csPool: {
+    user: "CS4347F18",
+    password: "a1",
+    connectString: "_CS4347F18",
     poolMin: 10,
     poolMax: 10,
     poolIncrement: 0

@@ -1,11 +1,11 @@
 const express = require('express');
 const router = new express.Router();
-const employees = require('../controllers/employees.js');
+const books = require('../controllers/books.js');
 
-router.route('/employees/:id?')
-  .get(employees.get)
-  .post(employees.post)
-  .put(employees.put)
-  .delete(employees.delete);
+router.route('/books/:isbn?')
+  .get(books.get)
+  .post(books.post)
+  .put(books.put)
+  .delete(books.delete);
 
 module.exports = router;
