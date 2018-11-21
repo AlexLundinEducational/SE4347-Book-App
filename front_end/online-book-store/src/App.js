@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import axios from "axios";
 
+
 import BookList from "./components/BookList";
 
 class App extends Component {
@@ -14,14 +15,19 @@ class App extends Component {
 
   componentDidMount() {
     axios
-      .get("https://jsonplaceholder.typicode.com/users")
+      .get("http://localhost:1521/api/books")
       .then(response => {
-
+		  
+		// print response to console  
+        console.log(response);			
+		
         // create an array of Books only with relevant data
-        const newBooks = response.data.map(c => {
+		//var index = 0;
+        const newBooks = response.data.map(b => {
+	      //console.log(response.data.map);	
           return {
-            id: c.id,
-            name: c.name
+			AUTHOR: b.AUTHOR,
+            ISBN: b.ISBN
           };
         });
 
@@ -41,21 +47,23 @@ class App extends Component {
     return (
       <div className="App">
         
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-        <BookList Books={this.state.Books} />
+		<header className="App-header">
+		  <img src={logo} className="App-logo" alt="logo" />
+		  <p>
+			Edit <code>src/App.js</code> and save to reload.
+		  </p>
+		  <a
+			className="App-link"
+			href="https://reactjs.org"
+			target="_blank"
+			rel="noopener noreferrer"
+		  >
+			Learn React
+		  </a>
+		</header>
+		<BookList Books={this.state.Books} />			
+				
+
       </div>
     );
   }

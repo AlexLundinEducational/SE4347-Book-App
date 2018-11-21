@@ -6,7 +6,7 @@ import Book from "./Book";
 function BookList(props) {
   return (
     <div>
-      {props.Books.map(c => <Book key={c.id} name={c.name} />)}
+      {props.Books.map(b => <Book key={b.ISBN} AUTHOR={b.AUTHOR} />)}
      </div> 
   );
 }
