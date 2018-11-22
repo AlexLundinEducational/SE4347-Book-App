@@ -1,16 +1,16 @@
-const books = require('../db_apis/books.js');
+const books2 = require('../db_apis/books.js');
 
 async function get(req, res, next) {
   try {
     const context = {};
 
-    context.ISBN = parseInt(req.params.isbn, 10);
-	context.ISBN = context.ISBN.toString();  
+    context.TITLE = parseInt(req.params.TITLE, 10);
+	context.TITLE = context.TITLE.toString();  
     context.sort = req.query.sort;
 
-    const rows = await books.find(context);
+    const rows = await books2.find(context);
 
-    if (req.params.ISBN) {
+    if (req.params.TITLE) {
       if (rows.length === 1) {
         res.status(200).json(rows[0]);
       } else {
