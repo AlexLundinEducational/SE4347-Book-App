@@ -17,14 +17,14 @@ async function find(context) {
   const binds = {};
 
   if (context.ISBN) {
-	context.ISBN = context.ISBN.toString();  
-    binds.ISBN = context.ISBN;
+	
+    binds.ISBN = context.ISBN.toString(); 
     query += '\nand ISBN = :ISBN';
 	console.log('\nBinds isbn ' + binds.ISBN);
   }
   
 
-  if (context.sort === undefined) {
+/*   if (context.sort === undefined) {
     query += '\norder by TITLE asc';
   } else {
     let [column, order] = context.sort.split(':');
@@ -48,17 +48,18 @@ async function find(context) {
     binds.row_offset = context.skip;
 
     query += '\noffset :row_offset rows';
-  }
+  } */
 
-  const limit = (context.limit > 0) ? context.limit : 30;
+  //const limit = (context.limit > 0) ? context.limit : 30;
 
-  binds.row_limit = limit;
+  //binds.row_limit = limit;
 
-  query += '\nfetch next :row_limit rows only';
+  //query += '\nfetch next :row_limit rows only';
   
+  console.log('\nQuery string is: \n' + query);
   const result = await database.simpleExecute(query, binds);
 	
-  console.log('\nQuery done with: \n' + query);
+  console.log('\nQuery complete.');
   return result.rows;
 }
 
