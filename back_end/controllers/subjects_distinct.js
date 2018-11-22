@@ -1,14 +1,12 @@
-const books_title = require('../db_apis/books.js');
+const subjects_distinct = require('../db_apis/subjects_distinct.js');
 
 async function get(req, res, next) {
   try {
     const context = {};
 
-    context.TITLE = req.params.TITLE;
+    const rows = await subjects_distinct.find(context);
 
-    const rows = await books_title.find(context);
-
-    if (req.params.TITLE) {
+    if (req.params.SUBJECT) {
       if (rows.length === 1) {
         res.status(200).json(rows[0]);
       } else {

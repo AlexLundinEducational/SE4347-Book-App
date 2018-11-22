@@ -22,6 +22,19 @@ async function find(context) {
 	console.log('\nBinds isbn ' + binds.ISBN);
   }
   
+  if (context.SUBJECT) {
+    binds.SUBJECT = context.SUBJECT; 
+    query += '\nand SUBJECT = :SUBJECT';
+	console.log('\nBinds subject ' + binds.SUBJECT);
+  }    
+  
+  if (context.TITLE) {
+    binds.TITLE = context.TITLE; 
+    query += '\nand TITLE= :TITLE';
+	console.log('\nBinds title ' + binds.TITLE);
+  }
+  
+
 
   if (context.sort === undefined) {
     query += '\norder by TITLE asc';

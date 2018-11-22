@@ -4,9 +4,6 @@ async function get(req, res, next) {
   try {
     const context = {};
 
-    context.ISBN = parseInt(req.params.isbn, 10);
-	context.ISBN = context.ISBN.toString();  
-    context.sort = req.query.sort;
 
     const rows = await books.find(context);
 

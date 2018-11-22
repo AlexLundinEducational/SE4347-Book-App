@@ -20,7 +20,7 @@ class App extends Component {
 
   componentDidMount() {
     axios
-      .get(API_URL)
+      .get(API_URL + '/subjects')
       .then(response => {
 		  
 		// print response to console  
@@ -57,7 +57,7 @@ class App extends Component {
   
     getInfo = () => {
     axios
-      .get(API_URL + '/' + this.search.value)
+      .get(API_URL + '/isbn/' + this.search.value)
       .then(response => {
 		  
 		// print response to console  
