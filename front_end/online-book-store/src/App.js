@@ -1,21 +1,33 @@
+// third party imports
 import React, { Component } from 'react';
+import axios from "axios";
+import Select from 'react-select';
+
+// relative imports
 import logo from './logo.svg';
 import './App.css';
-import axios from "axios";
-
-
 import BookList from "./components/BookList";
-import SearchBar from "./components/Search";
+import Search from "./components/Search";
 
 const API_URL = 'http://localhost:1521/api/books'
 
+ const scaryAnimals = [
+  { label: "Alligators", value: 1 },
+  { label: "Crocodiles", value: 2 },
+  { label: "Sharks", value: 3 },
+  { label: "Small crocodiles", value: 4 },
+  { label: "Smallest crocodiles", value: 5 },
+  { label: "Snakes", value: 6 }
+];
+ 
 
 
 class App extends Component {
 
   // default State object
   state = {
-    Books: []
+    Books: [],
+	Subjects: []
   };
 
   componentDidMount() {
@@ -28,21 +40,18 @@ class App extends Component {
 		
         // create an array of Books only with relevant data
 		//var index = 0;
-        const newBooks = response.data.map(b => {
+        const newSubjects = response.data.map(b => {
 	      //console.log(response.data.map);	
           return {
-			AUTHOR: b.AUTHOR,
-            ISBN: b.ISBN,
-			PRICE: b.PRICE,
-			SUBJECT: b.SUBJECT,
-			TITLE: b.TITLE
+			label: b.SUBJECT,
+            value: b.SUBJECT
           };
         });
 
         // create a new "State" object without mutating 
         // the original State object. 
         const newState = Object.assign({}, this.state, {
-          Books: newBooks
+          Subjects: newSubjects
         });
 
         // store the new state object in the component's state
@@ -57,7 +66,9 @@ class App extends Component {
   
     getInfo = () => {
     axios
-      .get(API_URL + '/isbn/' + this.search.value)
+      //.get(API_URL + '/isbn/' + this.search.value)
+	  .get(API_URL + '/subjects')
+	  
       .then(response => {
 		  
 		// print response to console  
@@ -102,7 +113,7 @@ class App extends Component {
     })
   }
 
-  
+
   render() {
     return (
       <div className="App">
@@ -114,6 +125,9 @@ class App extends Component {
 
 		<div className="App-search-bar">
 		  <form>
+            <div className="Subjects-container">
+              <Select options={this.state.Subjects} />
+            </div>		  
 			<input
 			  placeholder="Search for..."
 			  ref={input => this.search = input}
