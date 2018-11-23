@@ -19,13 +19,35 @@
   border-right: 1px solid #f0f0f0;
   
 }
-.App-search-bar {
+
+.subjects-dropdown {
   color: #61dafb;
-  width: calc(100% - 350px);
+  width: 350px;
+  height: 50;
+  top: 0;
+  position: fixed;
+  left: 350px;
+  padding: 20px 30px;
+  background-color: #fefefe;
+}
+.search-input {
+  color: #61dafb;
+  width: 350px;
+  height: 50;
+  top: 0;
+  position: fixed;
+  left: 750px;
+  padding: 20px 30px;
+  background-color: #fefefe;	
+}
+
+.titles-dropdown {
+  color: #61dafb;
+  width: calc(0.25 * 100% - 350px);
   height: 50;
   top: 0;
   position: relative;
-  left: 350px;
+  left: 350px + width;
   padding: 10px 30px;
   background-color: #fefefe;
 }

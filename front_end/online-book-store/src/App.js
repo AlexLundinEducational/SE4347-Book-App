@@ -123,19 +123,24 @@ class App extends Component {
 		  <img src={logo} className="App-logo" alt="logo" />
 		</div>
 
-		<div className="App-search-bar">
-		  <form>
-            <div className="Subjects-container">
-              <Select options={this.state.Subjects} />
-            </div>		  
-			<input
-			  placeholder="Search for..."
-			  ref={input => this.search = input}
-			  onChange={this.handleInputChange}
-			/>
-		  </form>
+
+
+            <div className="subjects-dropdown">
+              <Select 
+			          options={this.state.Subjects}
+                      placeholder="Subjects"			  
+			  />
+            </div>
+            <div className="search-input">
+			  <input
+			    placeholder="Search for..."
+			    ref={input => this.search = input}
+			    onChange={this.handleInputChange}
+			  />
+            </div>				
+
 	  
-		</div> 
+
 		
 		<div className="App-search-results">
 		  <BookList Books={this.state.Books} />
