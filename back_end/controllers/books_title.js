@@ -4,7 +4,9 @@ async function get(req, res, next) {
   try {
     const context = {};
 
-    context.TITLE = req.params.TITLE;
+    context.TITLE = parseInt(req.params.TITLE, 10);
+	context.TITLE = context.TITLE.toString();
+    context.sort = req.query.sort;
 
     const rows = await books_title.find(context);
 

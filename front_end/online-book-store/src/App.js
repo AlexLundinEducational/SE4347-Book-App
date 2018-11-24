@@ -64,11 +64,10 @@ class App extends Component {
   
 
   
-    getInfo = () => {
+  getBookJSONfromAPI = (apiString) => {
     axios
-      //.get(API_URL + '/isbn/' + this.search.value)
-	  .get(API_URL + '/subjects')
-	  
+      .get(API_URL + apiString)
+ 
       .then(response => {
 		  
 		// print response to console  
@@ -100,20 +99,28 @@ class App extends Component {
   
   }
   
-  handleInputChange = () => {
+  handleSearchBarInputChange = () => {
     this.setState({
       query: this.search.value
     }, () => {
       if (this.state.query && this.state.query.length > 1) {
         if (this.state.query.length % 2 === 0) {
-          this.getInfo()
+          this.getBookJSONfromAPI('/' + this.state.selectedOption + '/' + this.search.value)
         }
       } else if (!this.state.query) {
       }
     })
   }
   
-  handleOptionChange = (changeEvent) =>{
+  handleSubjectChange = (changeEvent) => {
+    this.setState({
+      value: changeEvent.value
+         }, () => {
+		this.getBookJSONfromAPI('/subject/' + this.state.value)	 
+	});
+  }
+  
+  handleRadioOptionChange = (changeEvent) =>{
     this.setState({
       selectedOption: changeEvent.target.value
     });
@@ -133,7 +140,8 @@ class App extends Component {
         <div className="subjects-dropdown">
           <Select 
 			          options={this.state.Subjects}
-                      placeholder="Subjects"			  
+                      placeholder="Subjects"
+                      onChange={this.handleSubjectChange}					  
 		  />
         </div>
 		
@@ -143,15 +151,23 @@ class App extends Component {
 		      <label>
 			    <input type="radio" value="Author" 
 						  checked={this.state.selectedOption === 'Author'} 
-						  onChange={this.handleOptionChange} />
+						  onChange={this.handleRadioOptionChange} />
 			    Author
+		      </label>
+		    </div>
+		    <div className="radio">
+		      <label>
+			    <input type="radio" value="ISBN" 
+						  checked={this.state.selectedOption === 'ISBN'} 
+						  onChange={this.handleRadioOptionChange} />
+			    ISBN
 		      </label>
 		    </div>
 		    <div className="radio">
 		      <label>
 			    <input type="radio" value="Title" 
 						  checked={this.state.selectedOption === 'Title'} 
-						  onChange={this.handleOptionChange} />
+						  onChange={this.handleRadioOptionChange} />
 			    Title
 		      </label>
 		    </div>
@@ -162,20 +178,15 @@ class App extends Component {
           <input
 			placeholder="Search for..."
 			ref={input => this.search = input}
-		    onChange={this.handleInputChange}
+		    onChange={this.handleSearchBarInputChange}
 		  />
         </div>				
 
-	  
-
-		
+	
 		<div className="App-search-results">
 		  <BookList Books={this.state.Books} />
 		</div> 
 		
-					
-				
-
       </div>
     );
   }

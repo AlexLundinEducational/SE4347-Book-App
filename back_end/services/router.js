@@ -19,7 +19,7 @@ router.route('/books/subject/:subject?')
 router.route('/books/title/:TITLE?')
   .get(books_title.get);  
   
-router.route('/books/subjects')
+router.route('/books/SUBJECTS')
   .get(subjects_distinct.get);
 
 
