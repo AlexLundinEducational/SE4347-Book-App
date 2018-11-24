@@ -112,7 +112,12 @@ class App extends Component {
       }
     })
   }
-
+  
+  handleOptionChange = (changeEvent) =>{
+    this.setState({
+      selectedOption: changeEvent.target.value
+    });
+  }
 
   render() {
     return (
@@ -125,19 +130,41 @@ class App extends Component {
 
 
 
-            <div className="subjects-dropdown">
-              <Select 
+        <div className="subjects-dropdown">
+          <Select 
 			          options={this.state.Subjects}
                       placeholder="Subjects"			  
-			  />
-            </div>
-            <div className="search-input">
-			  <input
-			    placeholder="Search for..."
-			    ref={input => this.search = input}
-			    onChange={this.handleInputChange}
-			  />
-            </div>				
+		  />
+        </div>
+		
+		<div className="search-radio">
+	      <form>
+		    <div className="radio">
+		      <label>
+			    <input type="radio" value="Author" 
+						  checked={this.state.selectedOption === 'Author'} 
+						  onChange={this.handleOptionChange} />
+			    Author
+		      </label>
+		    </div>
+		    <div className="radio">
+		      <label>
+			    <input type="radio" value="Title" 
+						  checked={this.state.selectedOption === 'Title'} 
+						  onChange={this.handleOptionChange} />
+			    Title
+		      </label>
+		    </div>
+	      </form>			
+		</div>	
+			
+        <div className="search-input">
+          <input
+			placeholder="Search for..."
+			ref={input => this.search = input}
+		    onChange={this.handleInputChange}
+		  />
+        </div>				
 
 	  
 
