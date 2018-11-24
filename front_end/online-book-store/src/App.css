@@ -1,37 +1,45 @@
+.App{
+  background-color: grey;
+  color: grey;
+}
+
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 40vmin;
 }
 
 .App-left-side {
-  background-color: white;
+  background-color: grey;
+  color: grey;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
   width: 320px;
   padding: 15px 20px;
   position: fixed;
   left: 0px;
   right: 0px;
-  border-right: 1px solid #f0f0f0;
+  border-right: 1px solid black;
   
 }
 
 .subjects-dropdown {
+  background-color: grey;
   color: #61dafb;
   width: 350px;
   height: 50px;
-  top: 50px;
-  position: fixed;
+  top: 50px; 
   left: 350px;
   padding: 20px 30px;
-  background-color: #fefefe;
+  position: fixed;
+  display: flex;
+  flex-direction: column;   
 }
 
 .search-radio {
+  background-color: grey;
   color: #61dafb;
   width: 350px;
   height: 50px;
@@ -39,11 +47,13 @@
   position: fixed;
   left: 750px;
   padding: 20px 30px;
-  background-color: #fefefe;
+  display: flex;
+  flex-direction: column; 
 }
 
 
 .search-input {
+  background-color: grey;
   color: #61dafb;
   width: 700px;
   height: 50px;
@@ -51,21 +61,21 @@
   position: fixed;
   left: 1050px;
   padding: 20px 30px;
-  background-color: #fefefe;
-  box-sizing: border-box;  
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;   
 }
 
 
 
 .App-search-results {
+  background-color: grey;
   color: #61dafb;
   width: calc(100% - 750px);
-  height: 50px;
-  top: 150px;
+  top: 200px;
   position: relative;
   left: 750px;
   padding: 10px 30px;
-  background-color: #fefefe;
 }
 
 

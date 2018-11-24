@@ -12,6 +12,14 @@ import Search from "./components/Search";
 
 const API_URL = 'http://localhost:1521/api/books'
 
+const style = {
+  height: 30,
+  border: "1px solid #61dafb",
+  margin: 6,
+  padding: 8,
+  color: "#61dafb"
+};
+
 class App extends Component {
 
   // default State object
@@ -126,10 +134,6 @@ class App extends Component {
           this.state.showBooks : this.state.showBooks + 10
     })
   }
-  
-  refresh = () => {
-  }
-  
   render() {
 	
 
@@ -196,15 +200,20 @@ class App extends Component {
         <InfiniteScroll
           dataLength={Books.length} //This is important field to render the next data
           next={this.handleShowMore}
-          hasMore={true}
+          hasMore={false}
           loader={<h4>Loading...</h4>}
+		  height={400}
           endMessage={
            <p style={{textAlign: 'center'}}>
-             <b>Yay! You have seen it all</b>
+             <b>End of search results</b>
            </p>
 		  }
           >
-          {Books}
+          {this.state.Books.map((i, index) => (
+            <div style={style} key={index}>
+              {i.TITLE}
+            </div>
+          ))}
         </InfiniteScroll>
 		</div>
 	
