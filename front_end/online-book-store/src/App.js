@@ -11,23 +11,13 @@ import Search from "./components/Search";
 
 const API_URL = 'http://localhost:1521/api/books'
 
- const scaryAnimals = [
-  { label: "Alligators", value: 1 },
-  { label: "Crocodiles", value: 2 },
-  { label: "Sharks", value: 3 },
-  { label: "Small crocodiles", value: 4 },
-  { label: "Smallest crocodiles", value: 5 },
-  { label: "Snakes", value: 6 }
-];
- 
-
-
 class App extends Component {
 
   // default State object
   state = {
     Books: [],
-	Subjects: []
+	Subjects: [],
+	RadioSelection: ""
   };
 
   componentDidMount() {
@@ -65,6 +55,7 @@ class App extends Component {
 
   
   getBookJSONfromAPI = (apiString) => {
+	apiString = apiString.replace('%20', " ");
     axios
       .get(API_URL + apiString)
  
@@ -104,9 +95,7 @@ class App extends Component {
       query: this.search.value
     }, () => {
       if (this.state.query && this.state.query.length > 1) {
-        if (this.state.query.length % 2 === 0) {
-          this.getBookJSONfromAPI('/' + this.state.selectedOption + '/' + this.search.value)
-        }
+        this.getBookJSONfromAPI('/' + this.state.RadioSelection + '/' + this.search.value)
       } else if (!this.state.query) {
       }
     })
@@ -122,6 +111,7 @@ class App extends Component {
   
   handleRadioOptionChange = (changeEvent) =>{
     this.setState({
+	  RadioSelection: changeEvent.target.value,
       selectedOption: changeEvent.target.value
     });
   }
@@ -149,8 +139,8 @@ class App extends Component {
 	      <form>
 		    <div className="radio">
 		      <label>
-			    <input type="radio" value="Author" 
-						  checked={this.state.selectedOption === 'Author'} 
+			    <input type="radio" value="author" 
+						  checked={this.state.selectedOption === 'author'} 
 						  onChange={this.handleRadioOptionChange} />
 			    Author
 		      </label>
@@ -165,8 +155,8 @@ class App extends Component {
 		    </div>
 		    <div className="radio">
 		      <label>
-			    <input type="radio" value="Title" 
-						  checked={this.state.selectedOption === 'Title'} 
+			    <input type="radio" value="title" 
+						  checked={this.state.selectedOption === 'title'} 
 						  onChange={this.handleRadioOptionChange} />
 			    Title
 		      </label>
@@ -178,6 +168,7 @@ class App extends Component {
           <input
 			placeholder="Search for..."
 			ref={input => this.search = input}
+			onFocus={this.handleSearchBarInputChange}
 		    onChange={this.handleSearchBarInputChange}
 		  />
         </div>				

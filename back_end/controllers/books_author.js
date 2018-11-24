@@ -1,14 +1,14 @@
-const books_title = require('../db_apis/books.js');
+const books_author = require('../db_apis/books.js');
 
 async function get(req, res, next) {
   try {
     const context = {};
 
-    context.TITLE = req.params.title;
+    context.AUTHOR = req.params.author;
 
-    const rows = await books_title.find(context);
+    const rows = await books_author.find(context);
 
-    if (req.params.TITLE) {
+    if (req.params.AUTHOR) {
       if (rows.length === 1) {
         res.status(200).json(rows[0]);
       } else {

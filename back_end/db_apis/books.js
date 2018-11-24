@@ -15,10 +15,18 @@ const sortableColumns = ['ISBN', 'TITLE'];
 async function find(context) {
   let query = baseQuery;
   const binds = {};
-
+  
+  if (context.AUTHOR) {
+    binds.AUTHOR = context.AUTHOR;
+    binds.AUTHOR = '^' + binds.AUTHOR;
+    query += '\nand REGEXP_LIKE(AUTHOR, :AUTHOR, \'i\')';
+	console.log('\nBinds AUTHOR ' + binds.AUTHOR);
+  }
+  
   if (context.ISBN) {
     binds.ISBN = context.ISBN; 
-    query += '\nand ISBN = :ISBN';
+    binds.ISBN = '^' + binds.ISBN;
+    query += '\nand REGEXP_LIKE(ISBN, :ISBN, \'i\')';
 	console.log('\nBinds isbn ' + binds.ISBN);
   }
   
@@ -29,8 +37,9 @@ async function find(context) {
   }    
   
   if (context.TITLE) {
-    binds.TITLE = context.TITLE; 
-    query += '\nand TITLE= :TITLE';
+    binds.TITLE = context.TITLE;
+    binds.TITLE = '^' + binds.TITLE;		
+    query += '\nand REGEXP_LIKE(TITLE, :TITLE, \'i\')';
 	console.log('\nBinds title ' + binds.TITLE);
   }
   
