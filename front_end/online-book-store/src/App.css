@@ -24,7 +24,7 @@
   color: #61dafb;
   width: 350px;
   height: 50px;
-  top: 0px;
+  top: 50px;
   position: fixed;
   left: 350px;
   padding: 20px 30px;
@@ -35,7 +35,7 @@
   color: #61dafb;
   width: 350px;
   height: 50px;
-  top: 0px;
+  top: 50px;
   position: fixed;
   left: 750px;
   padding: 20px 30px;
@@ -47,7 +47,7 @@
   color: #61dafb;
   width: 700px;
   height: 50px;
-  top: 0px;
+  top: 50px;
   position: fixed;
   left: 1050px;
   padding: 20px 30px;
@@ -60,7 +60,8 @@
 .App-search-results {
   color: #61dafb;
   width: calc(100% - 750px);
-  top: 100px;
+  height: 50px;
+  top: 150px;
   position: relative;
   left: 750px;
   padding: 10px 30px;

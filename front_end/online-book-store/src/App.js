@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import axios from "axios";
 import Select from 'react-select';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 // relative imports
 import logo from './logo.svg';
@@ -15,8 +16,9 @@ class App extends Component {
 
   // default State object
   state = {
-    Books: [],
+    Books: ["1", "2" , "3", "4"],
 	Subjects: [],
+	showBooks: 10,
 	RadioSelection: ""
   };
 
@@ -116,7 +118,25 @@ class App extends Component {
     });
   }
 
+  handleShowMore = () => {
+	  
+    this.setState({
+      showBooks: 
+        this.state.showBooks >= this.state.Books.length ?
+          this.state.showBooks : this.state.showBooks + 10
+    })
+  }
+  
+  refresh = () => {
+  }
+  
   render() {
+	
+
+    const Books = this.state.Books.slice(0, this.state.showBooks).map(
+      (Book) => <div>{Book.TITLE}</div>
+    )	
+
     return (
       <div className="App">
         
@@ -172,11 +192,23 @@ class App extends Component {
 		    onChange={this.handleSearchBarInputChange}
 		  />
         </div>				
-
+        <div className="App-search-results">
+        <InfiniteScroll
+          dataLength={Books.length} //This is important field to render the next data
+          next={this.handleShowMore}
+          hasMore={true}
+          loader={<h4>Loading...</h4>}
+          endMessage={
+           <p style={{textAlign: 'center'}}>
+             <b>Yay! You have seen it all</b>
+           </p>
+		  }
+          >
+          {Books}
+        </InfiniteScroll>
+		</div>
 	
-		<div className="App-search-results">
-		  <BookList Books={this.state.Books} />
-		</div> 
+
 		
       </div>
     );
