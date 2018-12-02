@@ -12,8 +12,8 @@ import Search from "./components/Search";
 
 const API_URL = 'http://localhost:1521/api/books'
 
-const style = {
-  height: 30,
+const bookCellStyle = {
+  height: 100,
   border: "1px solid #61dafb",
   margin: 6,
   padding: 8,
@@ -199,7 +199,6 @@ class App extends Component {
         <div className="App-search-results">
         <InfiniteScroll
           dataLength={Books.length} //This is important field to render the next data
-          next={this.handleShowMore}
           hasMore={false}
           loader={<h4>Loading...</h4>}
 		  height={400}
@@ -210,8 +209,22 @@ class App extends Component {
 		  }
           >
           {this.state.Books.map((i, index) => (
-            <div style={style} key={index}>
-              {i.TITLE}
+            <div style={bookCellStyle} key={index}>
+			  <div>
+			  Author: {i.AUTHOR}
+			  </div>
+			  <div>
+			  Title: {i.TITLE}
+			  </div>
+			  <div>
+			  ISBN: {i.ISBN}
+			  </div>
+			  <div>
+			  Price: {i.PRICE}
+			  </div>
+			  <div>
+			  Subject: {i.SUBJECT}
+			  </div>
             </div>
           ))}
         </InfiniteScroll>
