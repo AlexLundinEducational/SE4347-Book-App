@@ -13,7 +13,7 @@ import Search from "./components/Search";
 const API_URL = 'http://localhost:1521/api/books'
 
 const bookCellStyle = {
-  height: 100,
+  height: 125,
   border: "1px solid #61dafb",
   margin: 6,
   padding: 8,
@@ -24,10 +24,11 @@ class App extends Component {
 
   // default State object
   state = {
-    Books: ["1", "2" , "3", "4"],
+    Books: [],
 	Subjects: [],
 	showBooks: 10,
-	RadioSelection: ""
+	RadioSelection: "",
+	Cart: [],
   };
 
   componentDidMount() {
@@ -134,6 +135,17 @@ class App extends Component {
           this.state.showBooks : this.state.showBooks + 10
     })
   }
+  
+  handleAddToCart = (e) => {
+	  
+	console.log("Clicked button:" + e.target.id);
+	
+	 
+	 console.log(this.state.Books.map(e.target.id));
+
+		
+  }
+  
   render() {
 	
 
@@ -209,22 +221,35 @@ class App extends Component {
 		  }
           >
           {this.state.Books.map((i, index) => (
+
             <div style={bookCellStyle} key={index}>
-			  <div>
-			  Author: {i.AUTHOR}
-			  </div>
-			  <div>
-			  Title: {i.TITLE}
-			  </div>
-			  <div>
-			  ISBN: {i.ISBN}
-			  </div>
-			  <div>
-			  Price: {i.PRICE}
-			  </div>
-			  <div>
-			  Subject: {i.SUBJECT}
-			  </div>
+			
+              <button type="submit" id={index} onClick={this.handleAddToCart}>Add to Cart</button>
+			  
+
+			  
+			  <div>		  
+				  <div className="App-search-results-information">		
+
+					  <div>
+					  Author: {i.AUTHOR}
+					  </div>
+					  <div>
+					  Title: {i.TITLE}
+					  </div>
+					  <div>
+					  ISBN: {i.ISBN}
+					  </div>
+					  <div>
+					  Price: {i.PRICE}
+					  </div>
+					  <div>
+					  Subject: {i.SUBJECT}
+					  </div>			  
+				  </div>				  
+		      </div>
+
+
             </div>
           ))}
         </InfiniteScroll>

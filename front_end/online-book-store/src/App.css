@@ -25,6 +25,23 @@
   
 }
 
+.App-left-side-members {
+  background-color: grey;
+  color: grey;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  width: 320px;
+  padding: 15px 20px;
+  position: fixed;
+  left: 0px;
+  right: 0px;
+  border-right: 1px solid black;
+  
+}
+
 .subjects-dropdown {
   background-color: grey;
   color: #61dafb;
@@ -76,9 +93,27 @@
   top: 200px;
   position: relative;
   left: 750px;
-  padding: 10px 30px;
+
 }
 
+.App-search-results-clickable {
+  background-color: grey;
+  color: #61dafb;
+  width: 50px;
+  top: 0px;
+  position: relative;
+  left: 0px;
+  right: 50px;
+}
+
+.App-search-results-information {
+  background-color: grey;
+  color: #61dafb;
+  width: 900px;
+  top: 0px;
+  position: relative;
+  left: 0px;
+}
 
 @keyframes App-logo-spin {
   from {
