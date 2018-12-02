@@ -34,6 +34,28 @@
   left: 0px;
 }
 
+.App-members {
+  background-color: grey;
+  color: #61dafb;
+  width: 320px;
+  top: 500px;
+  position: fixed;
+  left: 320px;
+}
+
+.members-radio {
+  background-color: grey;
+  color: #61dafb;
+  width: 350px;
+  height: 50px;
+  top: 500px;
+  position: fixed;
+  left: 320px;
+  padding: 20px 30px;
+  display: flex;
+  flex-direction: column; 
+}
+
 .App-left-side-members {
   background-color: grey;
   color: grey;

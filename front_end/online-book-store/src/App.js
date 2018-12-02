@@ -28,7 +28,8 @@ class App extends Component {
 	Subjects: [],
 	showBooks: 10,
 	RadioSelection: "",
-	Cart: ["1", "2", "3"],
+	RadioMemberSelection: "",
+	Cart: [],
   };
 
   componentDidMount() {
@@ -172,6 +173,13 @@ class App extends Component {
 		  
   }
   
+  handleRadioMemberOptionChange = (changeEvent) =>{
+    this.setState({
+	  RadioMemberSelection: changeEvent.target.value,
+      selectedOption: changeEvent.target.value
+    });
+  }
+  
   render() {
 	
 
@@ -204,13 +212,13 @@ class App extends Component {
 		  }
           >
           {this.state.Cart.map((i, index) => (
+	
 
             <div style={bookCellStyle} key={index}>
 			
               <button type="submit" id={index} onClick={this.handleRemoveFromCart}>Remove From Cart</button>
 			  
 
-			  
 			  <div>		  
 				  <div className="App-search-results-information">		
 
@@ -239,6 +247,32 @@ class App extends Component {
 		</div>
 	
 
+	
+        <div className="App-members">
+		<div className="members-radio">
+	      <form>
+		    <div className="radio">
+		      <label>
+			    <input type="radio" value="new user" 
+						  checked={this.state.selectedOption === 'new user'} 
+						  onChange={this.handleRadioMemberOptionChange} />
+			    New User
+		      </label>
+		    </div>
+		    <div className="radio">
+		      <label>
+			    <input type="radio" value="Member" 
+						  checked={this.state.selectedOption === 'Member'} 
+						  onChange={this.handleRadioMemberOptionChange} />
+			    Member
+		      </label>
+		    </div>
+	      </form>			
+		</div>	
+		</div>	
+	
+	
+	
         <div className="subjects-dropdown">
           <Select 
 			          options={this.state.Subjects}
@@ -271,14 +305,6 @@ class App extends Component {
 						  checked={this.state.selectedOption === 'title'} 
 						  onChange={this.handleRadioOptionChange} />
 			    Title
-		      </label>
-		    </div>
-		    <div className="radio">
-		      <label>
-			    <input type="radio" value="cart" 
-						  checked={this.state.selectedOption === 'cart'} 
-						  onChange={this.handleRadioOptionChange} />
-			    Cart
 		      </label>
 		    </div>
 	      </form>			
