@@ -140,10 +140,9 @@ class App extends Component {
 	  
 	console.log("Clicked button:" + e.target.id);
 	
-	 
-	 console.log(this.state.Books.map(e.target.id));
+	console.log("Isbn is:" + this.state.Books[e.target.id].ISBN);
 
-		
+		  
   }
   
   render() {
