@@ -35,30 +35,75 @@ function Greeting(props) {
   return <GuestGreeting />;
 }
 
-function FormContent (props) {
-	const whatType = props.whatType;
-	if(whatType == "0"){
-		return <NewMemberForm />;
-	}
-	if(whatType == "1"){
-		return <MemberForm />;
-	}
-	if(whatType == "2"){
-		return <UserGreeting />;
-	}
-}
-function MemberForm (props) {
+
+
+function EmptyForm (props) {
   return(
-  <div className='modal'>
-      Member!
+  <div className='modal2'>
+      Choose Member or New Member.
   </div>
   );
 }
 
 function NewMemberForm (props) {
+
    return(
-   <div className='modal2'>
+   <div className='modal1'>
       newMemeber!
+	  <input
+		placeholder="First name"
+		id="FirstName"
+		onChange={e => console.log("Input changed:" + e.target.value)}
+	  />
+	  <input
+		placeholder="Last name"
+		id="LastName"
+		onChange={e => this.handleMemberFormFirstNameChange(e,e.target.value)}
+		
+	  />
+	  <input
+		placeholder="Street address"
+		id="Street address"
+	  />
+	  <input
+		placeholder="City"
+		id="City"
+	  />
+	  <input
+		placeholder="State"
+		id="State"
+	  />
+	  <input
+		placeholder="Zip"
+		id="Zip"
+	  />
+	  <input
+		placeholder="Phone"
+		id="Phone"
+	  />
+	  <input
+		placeholder="Email Address"
+		id="EmailAddress"
+	  />
+	 <input
+		placeholder="User ID"
+		id="UserID"
+	  />	  
+	  <input
+		placeholder="Password"
+		id="Password"
+	  />
+	  <input
+		placeholder="Credit Card Number"
+		id="CreditCardNumber"
+	  />
+  </div>
+  );
+}
+function MemberForm (props) {
+  return(
+  <div className='modal2'>
+      Member!
   </div>
   );
 }
@@ -68,9 +113,22 @@ function LoginButton(props) {
     <button onClick={props.onClick}>
       Login
     </button>
+	
   );
 }
+function MemberFormContent (props) {
+	const whatType = props.whatType;
+	if(whatType == "0"){
+		return <EmptyForm/>;
+	}	
+	if(whatType == "1"){
+		return <NewMemberForm />;
+	}
+	if(whatType == "2"){
+		return <MemberForm />;
+	}
 
+}
 function LogoutButton(props) {
   return (
     <button onClick={props.onClick}>
@@ -92,6 +150,17 @@ class App extends Component {
 	showMemberForm: false,
 	showNewMemberForm: false,
 	isLoggedIn: false,
+	FirstName: "",
+	LastName: "",
+	StreetAddress: "",
+	City: "",
+	State: "",
+	Zip: "",
+	Phone: "",
+	EmailAddress: "",
+	UserID: "",
+	Password: "",
+	CreditCardNumber: ""
   };
 
   componentDidMount() {
@@ -239,11 +308,25 @@ class App extends Component {
   handleMemberForm = () =>{
     this.setState({showNewMemberForm:false,showMemberForm:true});
 	console.log("Clicked button:" + this.state.showNewMemberForm);
+	
+
+	
+	
+	
   } 
   
   handleNewMemberForm = () =>{
      this.setState({showNewMemberForm:true,showMemberForm:false});
-  }   
+	 
+
+  } 
+  
+  handleMemberFormFirstNameChange = (e, id) => {
+	
+	this.setState({
+		FirstName: e.target.value
+	})
+  }
   
   handleLoginClick = () =>{
 	this.setState({isLoggedIn:true});
@@ -255,9 +338,10 @@ class App extends Component {
 
   render() {
 
-	const isNewMemberFormShown = this.state.isNewMemberForm;
-	const isMemberFormShown = this.state.isMemberForm;
-	const whatType = 0;
+	const isNewMemberFormShown = this.state.showNewMemberForm;
+	const isMemberFormShown = this.state.showMemberForm;
+	const FullName = this.state.FullName;
+	var whatType = "0";
     const isLoggedIn = this.state.isLoggedIn;
 	
     let button;
@@ -268,11 +352,11 @@ class App extends Component {
     } else {
       button = <LoginButton onClick={this.handleLoginClick} />;
     }
-	if (isMemberFormShown){
-		activeMemberForm = <MemberForm/>
-	}
 	if (isNewMemberFormShown){
-		activeMemberForm = <NewMemberForm/>
+		whatType = "1";
+	}
+	if (isMemberFormShown){
+		whatType = "2";
 	}
     const Books = this.state.Books.slice(0, this.state.showBooks).map(
       (Book) => <div>{Book.TITLE}</div>
@@ -349,10 +433,9 @@ class App extends Component {
 				{button}
 				<button type="submit" id="NM" onClick={this.handleNewMemberForm}>New Member</button>
 				<button type="submit" id="M" onClick={this.handleMemberForm}>Members</button>
-				<FormContent whatType="0" />
-				{activeMemberForm}
+				<MemberFormContent whatType={whatType}/>
 			  </div>			
-
+			
 
 					
 		
