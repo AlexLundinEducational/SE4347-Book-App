@@ -37,75 +37,7 @@ function Greeting(props) {
 
 
 
-function EmptyForm (props) {
-  return(
-  <div className='modal2'>
-      Choose Member or New Member.
-  </div>
-  );
-}
 
-function NewMemberForm (props) {
-
-   return(
-   <div className='modal1'>
-      newMemeber!
-	  <input
-		placeholder="First name"
-		id="FirstName"
-		
-	  />
-	  <input
-		placeholder="Last name"
-		id="LastName"
-		onChange={e => console.log("Input changed:" + e.target.value + "\n" + e.target.id)}
-	  />
-	  <input
-		placeholder="Street address"
-		id="Street address"
-	  />
-	  <input
-		placeholder="City"
-		id="City"
-	  />
-	  <input
-		placeholder="State"
-		id="State"
-	  />
-	  <input
-		placeholder="Zip"
-		id="Zip"
-	  />
-	  <input
-		placeholder="Phone"
-		id="Phone"
-	  />
-	  <input
-		placeholder="Email Address"
-		id="EmailAddress"
-	  />
-	 <input
-		placeholder="User ID"
-		id="UserID"
-	  />	  
-	  <input
-		placeholder="Password"
-		id="Password"
-	  />
-	  <input
-		placeholder="Credit Card Number"
-		id="CreditCardNumber"
-	  />
-  </div>
-  );
-}
-function MemberForm (props) {
-  return(
-  <div className='modal2'>
-      Member!
-  </div>
-  );
-}
 
 function LoginButton(props) {
   return (
@@ -115,19 +47,7 @@ function LoginButton(props) {
 	
   );
 }
-function MemberFormContent (props) {
-	const whatType = props.whatType;
-	if(whatType == "0"){
-		return <EmptyForm/>;
-	}	
-	if(whatType == "1"){
-		return <NewMemberForm />;
-	}
-	if(whatType == "2"){
-		return <MemberForm />;
-	}
 
-}
 function LogoutButton(props) {
   return (
     <button onClick={props.onClick}>
@@ -321,9 +241,69 @@ class App extends Component {
   } 
   
   handleMemberFormFirstNameChange = (e) => {
-	
 	this.setState({
 		FirstName: e.target.value
+	})
+	console.log("This changed:" + this.FirstName)
+  }
+  
+  handleMemberFormLastNameChange = (e) => {
+	this.setState({
+		LastName: e.target.value
+	})
+  } 
+  handleMemberFormStreetAddressChange = (e) => {
+	this.setState({
+		StreetAddress: e.target.value
+	})
+  }
+  
+  
+  handleMemberFormCityChange = (e) => {
+	this.setState({
+		City: e.target.value
+	})
+  }
+
+  handleMemberFormStateChange = (e) => {
+	this.setState({
+		State: e.target.value
+	})
+  }
+
+  handleMemberFormZipChange = (e) => {
+	this.setZip({
+		Zip: e.target.value
+	})
+  }
+ 
+  handleMemberFormPhoneChange = (e) => {
+	this.setPhone({
+		Phone: e.target.value
+	})
+  }
+
+  handleMemberFormEmailAddressChange = (e) => {
+	this.setEmailAddress({
+		EmailAddress: e.target.value
+	})
+  }
+
+  handleMemberFormUserIDChange = (e) => {
+	this.setUserID({
+		UserID: e.target.value
+	})
+  }
+  
+  handleMemberFormPasswordChange = (e) => {
+	this.setPassword({
+		Password: e.target.value
+	})
+  }
+  
+  handleMemberFormCreditCardNumberChange = (e) => {
+	this.setCreditCardNumber({
+		CreditCardNumber: e.target.value
 	})
   }
   
@@ -334,6 +314,99 @@ class App extends Component {
   handleLogoutClick = () =>{
     this.setState({isLoggedIn:false});
   }
+  
+  
+	MemberFormContent = (props) => {
+		const whatType = props.whatType;
+		if(whatType == "0"){
+			return <this.EmptyForm/>;
+		}	
+		if(whatType == "1"){
+			return <this.NewMemberForm />;
+		}
+		if(whatType == "2"){
+			return <this.MemberForm />;
+		}
+
+	}
+	  
+	EmptyForm = (props) => {
+	  return(
+	  <div className='modal2'>
+		  Choose Member or New Member.
+	  </div>
+	  );
+	}
+	MemberForm = (props) =>  {
+	  return(
+	  <div className='modal2'>
+		  Member!
+		 <input
+			placeholder="User ID"
+			id="UserID"
+		  />	  
+		  <input
+			placeholder="Password"
+			id="Password"
+		  />
+	  </div>
+	  );
+	}
+	
+	NewMemberForm  = (props) =>  {
+
+	   return(
+	   <div className='modal1'>
+		  newMemeber!
+		  <input
+			placeholder="First name"
+			id="FirstName"
+			onChange={e => this.handleMemberFormFirstNameChange(e)}
+		  />
+		  <input
+			placeholder="Last name"
+			id="LastName"
+			onChange={e => console.log("Input changed:" + e.target.value + "\n" + e.target.id)}
+		  />
+		  <input
+			placeholder="Street address"
+			id="Street address"
+		  />
+		  <input
+			placeholder="City"
+			id="City"
+		  />
+		  <input
+			placeholder="State"
+			id="State"
+		  />
+		  <input
+			placeholder="Zip"
+			id="Zip"
+		  />
+		  <input
+			placeholder="Phone"
+			id="Phone"
+		  />
+		  <input
+			placeholder="Email Address"
+			id="EmailAddress"
+		  />
+		 <input
+			placeholder="User ID"
+			id="UserID"
+		  />	  
+		  <input
+			placeholder="Password"
+			id="Password"
+		  />
+		  <input
+			placeholder="Credit Card Number"
+			id="CreditCardNumber"
+		  />
+	  </div>
+	  );
+	}
 
   render() {
 
@@ -432,7 +505,7 @@ class App extends Component {
 				{button}
 				<button type="submit" id="NM" onClick={this.handleNewMemberForm}>New Member</button>
 				<button type="submit" id="M" onClick={this.handleMemberForm}>Members</button>
-				<MemberFormContent whatType={whatType}/>
+				<this.MemberFormContent whatType={whatType}/>
 			  </div>			
 			
 
