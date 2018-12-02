@@ -53,13 +53,12 @@ function NewMemberForm (props) {
 	  <input
 		placeholder="First name"
 		id="FirstName"
-		onChange={e => console.log("Input changed:" + e.target.value)}
+		
 	  />
 	  <input
 		placeholder="Last name"
 		id="LastName"
-		onChange={e => this.handleMemberFormFirstNameChange(e,e.target.value)}
-		
+		onChange={e => console.log("Input changed:" + e.target.value + "\n" + e.target.id)}
 	  />
 	  <input
 		placeholder="Street address"
@@ -321,7 +320,7 @@ class App extends Component {
 
   } 
   
-  handleMemberFormFirstNameChange = (e, id) => {
+  handleMemberFormFirstNameChange = (e) => {
 	
 	this.setState({
 		FirstName: e.target.value
