@@ -20,8 +20,67 @@ const bookCellStyle = {
   color: "#61dafb"
 };
 
-class App extends Component {
+function UserGreeting(props) {
+  return <h1>Welcome back!</h1>;
+}
 
+function GuestGreeting(props) {
+  return <h1>Please sign up.</h1>;
+}
+function Greeting(props) {
+  const isLoggedIn = props.isLoggedIn;
+  if (isLoggedIn) {
+    return <UserGreeting />;
+  }
+  return <GuestGreeting />;
+}
+
+function FormContent (props) {
+	const whatType = props.whatType;
+	if(whatType == "0"){
+		return <NewMemberForm />;
+	}
+	if(whatType == "1"){
+		return <MemberForm />;
+	}
+	if(whatType == "2"){
+		return <UserGreeting />;
+	}
+}
+function MemberForm (props) {
+  return(
+  <div className='modal'>
+      Member!
+  </div>
+  );
+}
+
+function NewMemberForm (props) {
+   return(
+   <div className='modal2'>
+      newMemeber!
+  </div>
+  );
+}
+
+function LoginButton(props) {
+  return (
+    <button onClick={props.onClick}>
+      Login
+    </button>
+  );
+}
+
+function LogoutButton(props) {
+  return (
+    <button onClick={props.onClick}>
+      Logout
+    </button>
+  );
+}
+
+class App extends Component {
+	
   // default State object
   state = {
     Books: [],
@@ -30,6 +89,9 @@ class App extends Component {
 	RadioSelection: "",
 	RadioMemberSelection: "",
 	Cart: [],
+	showMemberForm: false,
+	showNewMemberForm: false,
+	isLoggedIn: false,
   };
 
   componentDidMount() {
@@ -173,16 +235,45 @@ class App extends Component {
 		  
   }
   
-  handleRadioMemberOptionChange = (changeEvent) =>{
-    this.setState({
-	  RadioMemberSelection: changeEvent.target.value,
-      selectedOption: changeEvent.target.value
-    });
-  }
-  
-  render() {
-	
 
+  handleMemberForm = () =>{
+    this.setState({showNewMemberForm:false,showMemberForm:true});
+	console.log("Clicked button:" + this.state.showNewMemberForm);
+  } 
+  
+  handleNewMemberForm = () =>{
+     this.setState({showNewMemberForm:true,showMemberForm:false});
+  }   
+  
+  handleLoginClick = () =>{
+	this.setState({isLoggedIn:true});
+  }
+
+  handleLogoutClick = () =>{
+    this.setState({isLoggedIn:false});
+  }
+
+  render() {
+
+	const isNewMemberFormShown = this.state.isNewMemberForm;
+	const isMemberFormShown = this.state.isMemberForm;
+	const whatType = 0;
+    const isLoggedIn = this.state.isLoggedIn;
+	
+    let button;
+    let activeMemberForm;
+	
+    if (isLoggedIn) {
+      button = <LogoutButton onClick={this.handleLogoutClick} />;
+    } else {
+      button = <LoginButton onClick={this.handleLoginClick} />;
+    }
+	if (isMemberFormShown){
+		activeMemberForm = <MemberForm/>
+	}
+	if (isNewMemberFormShown){
+		activeMemberForm = <NewMemberForm/>
+	}
     const Books = this.state.Books.slice(0, this.state.showBooks).map(
       (Book) => <div>{Book.TITLE}</div>
     )	
@@ -250,24 +341,21 @@ class App extends Component {
 	
         <div className="App-members">
 		<div className="members-radio">
-	      <form>
-		    <div className="radio">
-		      <label>
-			    <input type="radio" value="new user" 
-						  checked={this.state.selectedOption === 'new user'} 
-						  onChange={this.handleRadioMemberOptionChange} />
-			    New User
-		      </label>
-		    </div>
-		    <div className="radio">
-		      <label>
-			    <input type="radio" value="Member" 
-						  checked={this.state.selectedOption === 'Member'} 
-						  onChange={this.handleRadioMemberOptionChange} />
-			    Member
-		      </label>
-		    </div>
-	      </form>			
+
+
+			
+			  <div>
+				<Greeting isLoggedIn={isLoggedIn} />
+				{button}
+				<button type="submit" id="NM" onClick={this.handleNewMemberForm}>New Member</button>
+				<button type="submit" id="M" onClick={this.handleMemberForm}>Members</button>
+				<FormContent whatType="0" />
+				{activeMemberForm}
+			  </div>			
+
+
+					
+		
 		</div>	
 		</div>	
 	
@@ -371,5 +459,6 @@ class App extends Component {
     );
   }
 }
+
 
 export default App;
