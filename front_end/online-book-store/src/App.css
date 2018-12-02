@@ -25,6 +25,15 @@
   
 }
 
+.App-cart {
+  background-color: grey;
+  color: #61dafb;
+  width: 320px;
+  top: 500px;
+  position: fixed;
+  left: 0px;
+}
+
 .App-left-side-members {
   background-color: grey;
   color: grey;

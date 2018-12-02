@@ -28,7 +28,7 @@ class App extends Component {
 	Subjects: [],
 	showBooks: 10,
 	RadioSelection: "",
-	Cart: [],
+	Cart: ["1", "2", "3"],
   };
 
   componentDidMount() {
@@ -135,13 +135,40 @@ class App extends Component {
           this.state.showBooks : this.state.showBooks + 10
     })
   }
+   handleShowMoreCart = () => {
+	  
+    this.setState({
+      showCart: 
+        this.state.showCart >= this.state.Cart.length ?
+          this.state.showCart : this.state.showCart + 10
+    })
+  } 
   
   handleAddToCart = (e) => {
 	  
 	console.log("Clicked button:" + e.target.id);
 	
 	console.log("Isbn is:" + this.state.Books[e.target.id].ISBN);
-
+	
+	// save contents of Cart
+    var newArray = this.state.Cart.slice();
+    // push new item to cart    
+    newArray.push(this.state.Books[e.target.id]);   
+	// set state
+    this.setState({Cart:newArray})
+		  
+  }
+  
+   handleRemoveFromCart = (e) => {
+	  
+	console.log("Clicked button:" + e.target.id);
+	
+	// save contents of Cart
+    var newArray = this.state.Cart.slice();
+    // push new item to cart    
+    newArray.pop(this.state.Cart[e.target.id]);   
+	// set state
+    this.setState({Cart:newArray})
 		  
   }
   
@@ -151,7 +178,11 @@ class App extends Component {
     const Books = this.state.Books.slice(0, this.state.showBooks).map(
       (Book) => <div>{Book.TITLE}</div>
     )	
-
+	
+    const Cart = this.state.Cart.slice(0, this.state.showCart).map(
+      (Book) => <div>{Book.TITLE}</div>
+    )
+	
     return (
       <div className="App">
         
@@ -160,7 +191,53 @@ class App extends Component {
 		  <img src={logo} className="App-logo" alt="logo" />
 		</div>
 
+        <div className="App-cart">
+        <InfiniteScroll
+          dataLength={Cart.length} //This is important field to render the next data
+          hasMore={false}
+          loader={<h4>Loading...</h4>}
+		  height={400}
+          endMessage={
+           <p style={{textAlign: 'center'}}>
+             <b>End of Cart</b>
+           </p>
+		  }
+          >
+          {this.state.Cart.map((i, index) => (
 
+            <div style={bookCellStyle} key={index}>
+			
+              <button type="submit" id={index} onClick={this.handleRemoveFromCart}>Remove From Cart</button>
+			  
+
+			  
+			  <div>		  
+				  <div className="App-search-results-information">		
+
+					  <div>
+					  Author: {i.AUTHOR}
+					  </div>
+					  <div>
+					  Title: {i.TITLE}
+					  </div>
+					  <div>
+					  ISBN: {i.ISBN}
+					  </div>
+					  <div>
+					  Price: {i.PRICE}
+					  </div>
+					  <div>
+					  Subject: {i.SUBJECT}
+					  </div>			  
+				  </div>				  
+		      </div>
+
+
+            </div>
+          ))}
+        </InfiniteScroll>
+		</div>
+	
 
         <div className="subjects-dropdown">
           <Select 
@@ -194,6 +271,14 @@ class App extends Component {
 						  checked={this.state.selectedOption === 'title'} 
 						  onChange={this.handleRadioOptionChange} />
 			    Title
+		      </label>
+		    </div>
+		    <div className="radio">
+		      <label>
+			    <input type="radio" value="cart" 
+						  checked={this.state.selectedOption === 'cart'} 
+						  onChange={this.handleRadioOptionChange} />
+			    Cart
 		      </label>
 		    </div>
 	      </form>			
