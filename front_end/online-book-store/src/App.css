@@ -25,6 +25,15 @@
   
 }
 
+.App-cart-total {
+  background-color: grey;
+  color: #61dafb;
+  width: 320px;
+  top: 450px;
+  position: fixed;
+  left: 0px;
+}
+
 .App-cart {
   background-color: grey;
   color: #61dafb;

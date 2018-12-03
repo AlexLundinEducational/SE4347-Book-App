@@ -66,6 +66,7 @@ class App extends Component {
 	RadioSelection: "",
 	RadioMemberSelection: "",
 	Cart: [],
+	CartTotal: 0,
 	showMemberForm: false,
 	showNewMemberForm: false,
 	isLoggedIn: false,
@@ -197,6 +198,8 @@ class App extends Component {
   
   handleAddToCart = (e) => {
 	  
+	var currentPrice = this.state.Books[e.target.id].PRICE;
+	
 	console.log("Clicked button:" + e.target.id);
 	
 	console.log("Isbn is:" + this.state.Books[e.target.id].ISBN);
@@ -207,6 +210,10 @@ class App extends Component {
     newArray.push(this.state.Books[e.target.id]);   
 	// set state
     this.setState({Cart:newArray})
+	
+	this.state.CartTotal = this.state.CartTotal + currentPrice ;
+	
+	console.log("Cart total is:" + this.state.CartTotal);
 		  
   }
   
@@ -217,9 +224,14 @@ class App extends Component {
 	// save contents of Cart
     var newArray = this.state.Cart.slice();
     // push new item to cart    
-    newArray.pop(this.state.Cart[e.target.id]);   
+	newArray.splice(this.state.Cart[e.target.id], 1);
+	
 	// set state
     this.setState({Cart:newArray})
+	
+	this.state.CartTotal = this.state.CartTotal - this.state.Cart[e.target.id].PRICE;
+	
+	console.log("Cart total is:" + this.state.CartTotal);
 		  
   }
   
@@ -340,7 +352,6 @@ class App extends Component {
 	MemberForm = (props) =>  {
 	  return(
 	  <div className='modal2'>
-		  Member!
 		 <input
 			placeholder="User ID"
 			id="UserID"
@@ -357,7 +368,6 @@ class App extends Component {
 
 	   return(
 	   <div className='modal1'>
-		  newMemeber!
 		  <input
 			placeholder="First name"
 			id="FirstName"
@@ -410,6 +420,7 @@ class App extends Component {
 
   render() {
 
+	const cartRunningTotal = this.state.CartTotal;
 	const isNewMemberFormShown = this.state.showNewMemberForm;
 	const isMemberFormShown = this.state.showMemberForm;
 	const FullName = this.state.FullName;
@@ -445,7 +456,11 @@ class App extends Component {
 		  The Booksearch App
 		  <img src={logo} className="App-logo" alt="logo" />
 		</div>
-
+		 <div className="App-cart-total">
+           <p style={{textAlign: 'center'}}>
+             <b>Total: {this.state.CartTotal}</b>
+           </p>
+		</div>   
         <div className="App-cart">
         <InfiniteScroll
           dataLength={Cart.length} //This is important field to render the next data
