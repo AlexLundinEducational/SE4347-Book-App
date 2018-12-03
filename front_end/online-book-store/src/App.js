@@ -218,18 +218,20 @@ class App extends Component {
   }
   
    handleRemoveFromCart = (e) => {
-	  
-	console.log("Clicked button:" + e.target.id);
+	   
+	this.state.CartTotal = this.state.CartTotal - this.state.Cart[e.target.id].PRICE;  
+	
+	console.log("Remove :" + this.state.Cart[e.target.id].ISBN);
 	
 	// save contents of Cart
     var newArray = this.state.Cart.slice();
     // push new item to cart    
-	newArray.splice(this.state.Cart[e.target.id], 1);
+	newArray.splice(e.target.id, 1);
 	
 	// set state
     this.setState({Cart:newArray})
 	
-	this.state.CartTotal = this.state.CartTotal - this.state.Cart[e.target.id].PRICE;
+	
 	
 	console.log("Cart total is:" + this.state.CartTotal);
 		  
