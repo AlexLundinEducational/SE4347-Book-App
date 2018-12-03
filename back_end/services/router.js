@@ -7,6 +7,8 @@ const books_subject = require('../controllers/books_subject.js');
 const books_title = require('../controllers/books_title.js');
 const subjects_distinct = require('../controllers/subjects_distinct.js');
 
+const members = require('../controllers/members.js');
+
 // register a router for all available URL paths for the API
 router.route('/books')
   .get(books.get);
@@ -26,5 +28,11 @@ router.route('/books/title/:title?')
 router.route('/books/SUBJECTS')
   .get(subjects_distinct.get);
 
-
+router.route('/books/members/userid/:USERID?')
+  .get(members.get)
+  .post(members.post);
+  
+/* router.route('/orders/:userid?')
+  .get(orders_userid.get)   */
+  
 module.exports = router;

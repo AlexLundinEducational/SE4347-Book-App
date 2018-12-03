@@ -34,6 +34,7 @@ class App extends Component {
 	CartTotal: 0,
 	showMemberForm: false,
 	showNewMemberForm: false,
+	memberType: 0,
 	isLoggedIn: false,
 	FirstName: "",
 	LastName: "",
@@ -113,6 +114,21 @@ class App extends Component {
 
         // store the new state object in the component's state
         this.setState(newState);
+      })
+      .catch(error => console.log(error));
+  
+  }
+    
+  postMemeberJSONfromAPI = (apiString) => {
+    axios
+      .post(API_URL + apiString)
+ 
+      .then(response => {
+		  
+		// print response to console  
+        console.log(response);			
+		
+
       })
       .catch(error => console.log(error));
   
@@ -223,7 +239,7 @@ class App extends Component {
 	this.setState({
 		FirstName: e.target.value
 	})
-	console.log("This changed:" + this.FirstName)
+	console.log("This changed:" + this.state.FirstName)
   }
   
   handleMemberFormLastNameChange = (e) => {
@@ -251,27 +267,28 @@ class App extends Component {
   }
 
   handleMemberFormZipChange = (e) => {
-	this.setZip({
+	this.setState({
 		Zip: e.target.value
 	})
   }
  
   handleMemberFormPhoneChange = (e) => {
-	this.setPhone({
+	this.setState({
 		Phone: e.target.value
 	})
   }
 
   handleMemberFormEmailAddressChange = (e) => {
-	this.setEmailAddress({
+	this.setState({
 		EmailAddress: e.target.value
 	})
   }
 
   handleMemberFormUserIDChange = (e) => {
-	this.setUserID({
+	this.setState({
 		UserID: e.target.value
 	})
+	console.log("This changed:" + this.state.UserID)
   }
   
   handleMemberFormPasswordChange = (e) => {
@@ -287,10 +304,25 @@ class App extends Component {
   }
   
   handleLoginClick = () =>{
+
 	this.setState({isLoggedIn:true});
+
+	if(this.state.memberType == "1"){
+		console.log("New Member Login")
+		this.postMemeberJSONfromAPI("/members/userid/" + this.state.UserID)
+	}
+	if(this.state.memberType== "2"){
+		console.log("Member Login")
+	}	  
   }
 
   handleLogoutClick = () =>{
+	if(this.state.memberType == "1"){
+		console.log("New Member Logout")
+	}
+	if(this.state.memberType== "2"){
+		console.log("Member Logout")
+	}	  
     this.setState({isLoggedIn:false});
   }
 
@@ -313,6 +345,8 @@ Greeting = (props) => {
 
 
  LoginButton = (props) => {
+
+
   return (
     <button onClick={props.onClick}>
       Login
@@ -322,6 +356,7 @@ Greeting = (props) => {
 }
 
 LogoutButton = (props) => {
+
   return (
     <button onClick={props.onClick}>
       Logout
@@ -332,6 +367,9 @@ LogoutButton = (props) => {
  
 	MemberFormContent = (props) => {
 		const whatType = props.whatType;
+		this.state.memberType = whatType;
+		
+		console.log("Member type changed:" + this.state.memberType)
 		if(whatType == "0"){
 			return <this.EmptyForm/>;
 		}	
@@ -407,6 +445,7 @@ LogoutButton = (props) => {
 		 <input
 			placeholder="User ID"
 			id="UserID"
+			onChange={e => this.handleMemberFormUserIDChange(e)}
 		  />	  
 		  <input
 			placeholder="Password"
