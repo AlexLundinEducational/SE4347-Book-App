@@ -20,41 +20,6 @@ const bookCellStyle = {
   color: "#61dafb"
 };
 
-function UserGreeting(props) {
-  return <h1>Welcome back!</h1>;
-}
-
-function GuestGreeting(props) {
-  return <h1>Please sign up.</h1>;
-}
-function Greeting(props) {
-  const isLoggedIn = props.isLoggedIn;
-  if (isLoggedIn) {
-    return <UserGreeting />;
-  }
-  return <GuestGreeting />;
-}
-
-
-
-
-
-function LoginButton(props) {
-  return (
-    <button onClick={props.onClick}>
-      Login
-    </button>
-	
-  );
-}
-
-function LogoutButton(props) {
-  return (
-    <button onClick={props.onClick}>
-      Logout
-    </button>
-  );
-}
 
 class App extends Component {
 	
@@ -328,8 +293,43 @@ class App extends Component {
   handleLogoutClick = () =>{
     this.setState({isLoggedIn:false});
   }
+
   
-  
+ UserGreeting = (props) => {
+  return <h1>Welcome back!</h1>;
+}
+
+GuestGreeting = (props) => {
+  return <h1>Please sign up.</h1>;
+}
+
+Greeting = (props) => {
+  const isLoggedIn = props.isLoggedIn;
+  if (isLoggedIn) {
+    return <this.UserGreeting />;
+  }
+  return <this.GuestGreeting />;
+}
+
+
+ LoginButton = (props) => {
+  return (
+    <button onClick={props.onClick}>
+      Login
+    </button>
+	
+  );
+}
+
+LogoutButton = (props) => {
+  return (
+    <button onClick={props.onClick}>
+      Logout
+    </button>
+  );
+}
+
+ 
 	MemberFormContent = (props) => {
 		const whatType = props.whatType;
 		if(whatType == "0"){
@@ -433,9 +433,9 @@ class App extends Component {
     let activeMemberForm;
 	
     if (isLoggedIn) {
-      button = <LogoutButton onClick={this.handleLogoutClick} />;
+      button = <this.LogoutButton onClick={this.handleLogoutClick} />;
     } else {
-      button = <LoginButton onClick={this.handleLoginClick} />;
+      button = <this.LoginButton onClick={this.handleLoginClick} />;
     }
 	if (isNewMemberFormShown){
 		whatType = "1";
@@ -518,7 +518,7 @@ class App extends Component {
 
 			
 			  <div>
-				<Greeting isLoggedIn={isLoggedIn} />
+				<this.Greeting isLoggedIn={isLoggedIn} />
 				{button}
 				<button type="submit" id="NM" onClick={this.handleNewMemberForm}>New Member</button>
 				<button type="submit" id="M" onClick={this.handleMemberForm}>Members</button>
